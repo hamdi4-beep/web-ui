@@ -17,7 +17,7 @@ export default function Layer() {
 
             <form action="#" onSubmit={() => false} className='py-8'>
               <textarea
-                placeholder="Got something on your mind?"
+                placeholder="Got something on your mind? (Input Form)"
                 className="w-full outline-none"
               />
             </form>
