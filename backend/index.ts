@@ -1,14 +1,17 @@
-import { connect } from 'net'
+import { createWriteStream } from 'fs'
+import { createServer } from 'net'
+import { Readable } from 'stream'
 
-const socket = connect(8000)
+const server = createServer()
 
-socket.on('connect', () => {
-    socket.write('Who are you exactly?')
-    socket.end()
+server.listen(8000, () => {
+    console.log('Listening in on port', 8000)
 })
 
-socket
-    .on('error', console.error)
-    .on('data', data => {
-        console.log(data.toString())
+server
+    .on('error', err => console.error(err))
+    .on('connection', socket => {
+        Readable.from('Who are you?')
+            .pipe(socket)
+            .pipe(createWriteStream('response.md'))
     })
