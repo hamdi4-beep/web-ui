@@ -1,17 +1,8 @@
-import { createWriteStream } from 'fs'
-import { createServer } from 'net'
-import { Readable } from 'stream'
+import express from 'express'
 
-const server = createServer()
+const app = express()
+app.listen(3000, () => console.log('Listening in on port', 3000))
 
-server.listen(8000, () => {
-    console.log('Listening in on port', 8000)
+app.post('/ask', (req, res) => {
+    console.log(req)
 })
-
-server
-    .on('error', err => console.error(err))
-    .on('connection', socket => {
-        Readable.from('Who are you?')
-            .pipe(socket)
-            .pipe(createWriteStream('response.md'))
-    })
